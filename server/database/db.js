@@ -1,12 +1,13 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-export const Connection = () => {
-	mongoose
-		.connect(process.env.MONGO_URI, {
-			dbName: "backendapi",
-		})
-		.then((c) => console.log(`Database Connected with ${c.connection.host}`))
-		.catch((e) => console.log(e));
+const Connection = async (username, password) => {
+    const URL = `mongodb+srv://${username}:${password}@nodejs-todoapp.idl5rnf.mongodb.net/?retryWrites=true&w=majority`;
+    try {
+        await mongoose.connect(URL, { useNewUrlParser: true })
+        console.log('Database connected successfully');
+    } catch (error) {
+        console.log('Error while connecting to the database ', error);
+    }
 };
 
 export default Connection;
